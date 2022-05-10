@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Countries from './Countries'
-
+import Countries from '../components/Countries'
+ 
 export default class Home extends Component {
     render() {
         return (

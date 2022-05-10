@@ -1,46 +1,16 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import Card from './Card';
+import Select from './Select';
 
 const Countries = () => {
   const [data, setData] = useState([]);
   const [rangeValue, setRangeValue] = useState(36);
-  // Monter le composant
-  // eslint-disable-next-line
   const [selectedRadio, setSelectedRadio] = useState('');
-
-  const radios = ['Africa', 'America', 'Asia', 'Europe', 'Oceania'];
-
-  useEffect(() => {
-    axios.get('https://restcountries.com/v3.1/all').then((res) => {
-      setData(res.data);
-    });
-  }, []);
 
   return (
     <div className="countries">
-      <ul className="radio-container">
-        <input
-          type="range"
-          min="1"
-          max="250"
-          defaultValue={rangeValue}
-          onChange={(e) => setRangeValue(e.target.value)}
-        />
+      <Select component='countries' rangeValue={rangeValue} setRangeValue={setRangeValue} selectedRadio={selectedRadio} setSelectedRadio={setSelectedRadio} setData={setData}/>
 
-        {radios.map((continent) => (
-          <li>
-            <input
-              type="radio"
-              id={continent}
-              name="continentRadio"
-              checked= {continent === selectedRadio ? true : false}
-              onChange={(e) => setSelectedRadio(e.target.id)}
-            />
-            <label htmlFor={continent}>{continent}</label>
-          </li>
-        ))}
-      </ul>
       {selectedRadio && (
         <button onClick={() => setSelectedRadio([])}>
           Annuler la recherche
