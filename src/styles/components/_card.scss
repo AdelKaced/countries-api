@@ -9,11 +9,7 @@
     font-size: 1rem;
   }
 
-  &:hover {
-    transform: scale(1.2);
-    z-index: 2;
-  }
-
+ 
   &:hover .infos {
     opacity: 1;
     transform: scaleY(1);
@@ -41,4 +37,27 @@
     object-fit: cover;
     border-radius: 10px;
   }
+  // .questions{
+  //   display: flex;
+  //   justify-content: space-evenly;
+  // }
+  .input-question input {
+    margin-right: 5px;
+  }
+.questions {
+  display: flex;
+  flex-direction:column;
+  justify-content: space-evenly
 }
+  .questions div {
+    margin : 2px 0;
+    
+  }
+}
+ 
+ 
+.hover:hover {
+  transform: scale(1.2);
+  z-index: 2;
+}
+

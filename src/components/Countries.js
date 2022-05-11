@@ -22,7 +22,7 @@ const Countries = () => {
           .filter((country) => country.continents[0].includes(selectedRadio))
           .slice(0, rangeValue)
           .map((country, index) => (
-            <Card key={index} country={country} />
+            <Card key={index} country={country} component='countries'/>
           ))}
       </ul>
     </div>
