@@ -9,7 +9,6 @@
     font-size: 1rem;
   }
 
- 
   &:hover .infos {
     opacity: 1;
     transform: scaleY(1);
@@ -44,20 +43,21 @@
   .input-question input {
     margin-right: 5px;
   }
-.questions {
-  display: flex;
-  flex-direction:column;
-  justify-content: space-evenly
-}
+  .questions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
   .questions div {
-    margin : 2px 0;
-    
+    margin: 2px 0;
+  }
+
+  .right-answer {
+    color: green;
   }
 }
- 
- 
+
 .hover:hover {
   transform: scale(1.2);
   z-index: 2;
 }
-
