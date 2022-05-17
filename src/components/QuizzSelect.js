@@ -88,7 +88,7 @@ const QuizzSelect = () => {
                 setQuizzIsOn(false);
               }}
             >
-              Stop Quizz
+              Restart Quizz
             </button>
           </div>
         ) : (
