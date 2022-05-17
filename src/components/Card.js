@@ -35,6 +35,7 @@ const Card = ({
   // Sort Input data to change the order of right answer
   useEffect(() => {
     setRandomInput(inputs.sort(() => Math.random() - 0.5));
+    // eslint-disable-next-line 
   }, [nextQuestion]);
 
   console.log('countQuestion', countQuestion);
