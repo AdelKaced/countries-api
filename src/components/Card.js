@@ -7,27 +7,32 @@ const Card = ({
   otherCountry3,
   setNextQuestion,
   nextQuestion,
-  setCountQuestion,
   setCountGoodAnswer,
-  countQuestion,
-  countGoodAnswer,
+  setIsMaxQuestion,
+  numberMaxQuestion
 }) => {
-  const [selectedAnwer, setSelectedAnswer] = useState('');
+  const [selectedAnswer, setSelectedAnswer] = useState('');
   const [isValidate, setIsValidate] = useState(false);
   const [answerIsCorrect, setAnswerIsCorrect] = useState(false);
   const [randomInput, setRandomInput] = useState('');
+  const [countQuestion, setCountQuestion] = useState(1);
+  const [countCorrectAnswers, setCountCorrectAnswers] = useState(0);
 
   // put all country data on array to create esealy input
   const inputs = [country, otherCountry2, otherCountry3];
   // mix the array to get different order
 
   const checkAnswer = () => {
-    if (selectedAnwer) {
+    if (selectedAnswer) {
       setIsValidate(true);
       // change answerIsCorrect to True when response is correct
-      setAnswerIsCorrect(country.name.common === selectedAnwer);
-      if (country.name.common === selectedAnwer) {
-        setCountGoodAnswer(countGoodAnswer + 1);
+      setAnswerIsCorrect(country.name.common === selectedAnswer);
+      if (country.name.common === selectedAnswer)
+        setCountCorrectAnswers(countCorrectAnswers + 1);
+
+      if (countQuestion >= numberMaxQuestion) {
+        setCountGoodAnswer(countCorrectAnswers);
+        setIsMaxQuestion(true); 
       }
     }
   };
@@ -35,15 +40,12 @@ const Card = ({
   // Sort Input data to change the order of right answer
   useEffect(() => {
     setRandomInput(inputs.sort(() => Math.random() - 0.5));
-    // eslint-disable-next-line 
   }, [nextQuestion]);
-
-  console.log('countQuestion', countQuestion);
-  console.log('countGoodAnswer', countGoodAnswer);
 
   return (
     <div>
       <li className={component === 'countries' ? 'card hover' : 'card'}>
+        {countCorrectAnswers} / {countQuestion}
         <img src={country.flags.svg} alt="flag" />
         {component === 'countries' ? (
           <div className="infos">
@@ -60,9 +62,9 @@ const Card = ({
                     type="radio"
                     id={question.name.common}
                     name="question"
-                    disabled={isValidate && !selectedAnwer ? true : false}
+                    disabled={isValidate && !selectedAnswer ? true : false}
                     checked={
-                      selectedAnwer === question.name.common ? true : false
+                      selectedAnswer === question.name.common ? true : false
                     }
                     onChange={(e) => setSelectedAnswer(e.target.id)}
                   />

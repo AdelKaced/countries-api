@@ -8,8 +8,10 @@ const QuizzSelect = () => {
   const [isStart, setIsStart] = useState(false);
   const [quizzIsOn, setQuizzIsOn] = useState(false);
   const [nextQuestion, setNextQuestion] = useState(false);
-  const [countQuestion, setCountQuestion] = useState(0);
   const [countGoodAnswer, setCountGoodAnswer] = useState(0);
+  const [isMaxQuestion, setIsMaxQuestion] = useState(false);
+
+  const numberMaxQuestion = 5;
 
   // Filter on regarding continent selection
   const filterDataContinent = data.filter((country) =>
@@ -36,8 +38,7 @@ const QuizzSelect = () => {
     }
   };
 
-  // when next question is update there is a new render then a new random value
-  useEffect(() => console.log('test Next Question'), [nextQuestion]);
+  console.log('rerender');
 
   return (
     <div className="quizz">
@@ -63,7 +64,7 @@ const QuizzSelect = () => {
               Start
             </button>
           )
-        ) : countQuestion < 10 ? (
+        ) : !isMaxQuestion ? (
           <div>
             <h4>To Which Country belongs this Flag ?</h4>
             {filterDataContinent.length > 0 && (
@@ -74,10 +75,9 @@ const QuizzSelect = () => {
                 otherCountry3={filterDataContinent[randomIndex[2]]}
                 setNextQuestion={setNextQuestion}
                 nextQuestion={nextQuestion}
-                setCountQuestion={setCountQuestion}
                 setCountGoodAnswer={setCountGoodAnswer}
-                countQuestion={countQuestion}
-                countGoodAnswer={countGoodAnswer}
+                setIsMaxQuestion={setIsMaxQuestion}
+                numberMaxQuestion= {numberMaxQuestion}
               />
             )}
             <button
@@ -95,12 +95,12 @@ const QuizzSelect = () => {
           <div className="score">
             <h3>{rewards(countGoodAnswer)} !</h3>
             <p>
-              You score is {countGoodAnswer}/ {countQuestion}
+              You score is {countGoodAnswer}/ {numberMaxQuestion}
             </p>
             <button
               onClick={() => {
-                setCountQuestion(0);
                 setCountGoodAnswer(0);
+                setIsMaxQuestion(false);
               }}
             >
               Try again
