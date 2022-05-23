@@ -29,10 +29,10 @@ const QuizzSelect = () => {
   }
 
   const rewards = (param) => {
-    if (param < 4) {
+    if (param < 2) {
       return 'Too bad you need more training';
-    } else if (param < 7) {
-      return 'Good Job';
+    } else if (param <= 4) {
+      return 'Good Job'; 
     } else {
       return 'Wonderful';
     }
