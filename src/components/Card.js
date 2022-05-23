@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 const Card = ({
-  component,
   country,
   otherCountry2,
   otherCountry3,
   setNextQuestion,
   nextQuestion,
-  setCountGoodAnswer,
-  setIsMaxQuestion,
-  numberMaxQuestion
+  setResultQuizz,
+  numberMaxQuestion,
+  setDisplayScore,
 }) => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [isValidate, setIsValidate] = useState(false);
@@ -29,25 +28,25 @@ const Card = ({
       setAnswerIsCorrect(country.name.common === selectedAnswer);
       if (country.name.common === selectedAnswer)
         setCountCorrectAnswers(countCorrectAnswers + 1);
-
-      if (countQuestion >= numberMaxQuestion) {
-        setCountGoodAnswer(countCorrectAnswers);
-        setIsMaxQuestion(true); 
-      }
     }
+  };
+
+  const handleDisplayScore = () => {
+    setResultQuizz(countCorrectAnswers);
+    setDisplayScore(true);
   };
 
   // Sort Input data to change the order of right answer
   useEffect(() => {
     setRandomInput(inputs.sort(() => Math.random() - 0.5));
+    // eslint-disable-next-line 
   }, [nextQuestion]);
 
   return (
     <div>
-      <li className={component === 'countries' ? 'card hover' : 'card'}>
-        {countCorrectAnswers} / {countQuestion}
+      <li className={!numberMaxQuestion ? 'card hover' : 'card'}>
         <img src={country.flags.svg} alt="flag" />
-        {component === 'countries' ? (
+        {!numberMaxQuestion ? (
           <div className="infos">
             <h2>{country.name.common}</h2>
             <h4>{country.capital}</h4>
@@ -86,16 +85,21 @@ const Card = ({
               </div>
             ) : (
               <div>
-                <button
-                  onClick={(e) => {
-                    setIsValidate(false);
-                    setNextQuestion(!nextQuestion);
-                    setCountQuestion(countQuestion + 1);
-                    setSelectedAnswer(''); // delete selected answer after checking
-                  }}
-                >
-                  Next Question
-                </button>
+                {countQuestion < numberMaxQuestion ? (
+                  <button
+                    onClick={(e) => {
+                      setIsValidate(false);
+                      setNextQuestion(!nextQuestion);
+                      setCountQuestion(countQuestion + 1);
+                      setSelectedAnswer(''); // delete selected answer after checking
+                    }}
+                  >
+                    Next Question
+                  </button>
+                ) : (
+                  <button onClick={handleDisplayScore}>See My score</button>
+                )}
+
                 {answerIsCorrect ? <p>Good Answer !</p> : <p>Bad answer !</p>}
               </div>
             )}

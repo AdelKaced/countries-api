@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Card from './Card';
 import Select from './Select';
 
@@ -8,8 +8,8 @@ const QuizzSelect = () => {
   const [isStart, setIsStart] = useState(false);
   const [quizzIsOn, setQuizzIsOn] = useState(false);
   const [nextQuestion, setNextQuestion] = useState(false);
-  const [countGoodAnswer, setCountGoodAnswer] = useState(0);
-  const [isMaxQuestion, setIsMaxQuestion] = useState(false);
+  const [resultQuizz, setResultQuizz] = useState(0);
+  const [displayScore, setDisplayScore] = useState(false);
 
   const numberMaxQuestion = 5;
 
@@ -43,7 +43,6 @@ const QuizzSelect = () => {
   return (
     <div className="quizz">
       <Select
-        component="quizz"
         setData={setData}
         selectedRadio={selectedRadio}
         setSelectedRadio={setSelectedRadio}
@@ -64,20 +63,19 @@ const QuizzSelect = () => {
               Start
             </button>
           )
-        ) : !isMaxQuestion ? (
+        ) : !displayScore ? (
           <div>
             <h4>To Which Country belongs this Flag ?</h4>
             {filterDataContinent.length > 0 && (
               <Card
-                component="quizz"
                 country={filterDataContinent[randomIndex[0]]}
                 otherCountry2={filterDataContinent[randomIndex[1]]}
                 otherCountry3={filterDataContinent[randomIndex[2]]}
                 setNextQuestion={setNextQuestion}
                 nextQuestion={nextQuestion}
-                setCountGoodAnswer={setCountGoodAnswer}
-                setIsMaxQuestion={setIsMaxQuestion}
-                numberMaxQuestion= {numberMaxQuestion}
+                setResultQuizz={setResultQuizz}
+                numberMaxQuestion={numberMaxQuestion}
+                setDisplayScore={setDisplayScore}
               />
             )}
             <button
@@ -93,14 +91,14 @@ const QuizzSelect = () => {
           </div>
         ) : (
           <div className="score">
-            <h3>{rewards(countGoodAnswer)} !</h3>
+            <h3>{rewards(resultQuizz)} !</h3>
             <p>
-              You score is {countGoodAnswer}/ {numberMaxQuestion}
+              You score is {resultQuizz}/ {numberMaxQuestion}
             </p>
             <button
               onClick={() => {
-                setCountGoodAnswer(0);
-                setIsMaxQuestion(false);
+                setResultQuizz(0);
+                setDisplayScore(false);
               }}
             >
               Try again

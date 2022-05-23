@@ -1,12 +1,28 @@
 .about {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
 
-    
+  p {
+    margin: 10px;
+  }
+  .react__player {
+    max-width: 350px;
+    max-height: 250px;
+    margin: 5px;
+  }
 
-    p {
-        margin: 10px
+  @media screen and (min-width: 500px) {
+    .react__player {
+      max-width: 450px;
+      max-height: 350px;
+      margin: 5px;
     }
+  }
+  @media screen and (min-width: 750px) {
+    .react__player {
+      max-width: 550px;
+      max-height: 400px;
+      margin: 5px;
+    }
+  }
 }
-
