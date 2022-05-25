@@ -1,0 +1,33 @@
+.blog-container {
+  // display: grid;
+  width: 500px;
+  height: 250px;
+  background: rgb(28, 28, 28);
+  color: white;
+  border-radius: 0 20px 20px 20px;
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.356);
+  position: relative;
+
+  .btn-login,
+  .btn-sign-up {
+    font-size: 0.8em;
+    display: inline-block;
+    border-radius: 0px 10px 0 0;
+    padding: 6px;
+    background: rgb(80, 72, 72);
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(135%);
+    }
+
+  }
+      .active {
+        background: rgb(28, 28, 28);
+      }
+      .header-btn{
+        margin-top: 20px;
+      }
+
+}

@@ -1,0 +1,19 @@
+.sign-up {
+  form {
+    display: grid;
+    
+    input {
+        text-align: center;
+      padding: 5px;
+      border: none;
+      /* margin: auto; */
+      /* width: 50%; */
+      margin-bottom: 10px;
+      border-radius: 5px
+    }
+    input[type='submit'] {
+        padding: 3px;
+        background:$color-1;
+    }
+  }
+}

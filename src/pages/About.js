@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player/youtube';
 
 const About = () => {
   return (
-    <div class="about">
+    <div className="about">
       <h3>My work </h3>
       <p>
         The first page of this website was made by folowing this lesson on Youtube
@@ -14,7 +14,8 @@ const About = () => {
           className="react__player" 
         />
       <p>
-        Then I add the Quizz page which was a good way for me to learn more about some react behaviour
+        I add the Quizz page which was a good way for me to learn more about some react behaviour<br />
+        I also add the Blog page to learn about Firebase authentication and firestore to create, read ,update and deleting data
       </p>
     </div>
   );
