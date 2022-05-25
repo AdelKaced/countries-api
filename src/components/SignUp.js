@@ -8,24 +8,6 @@ const SignUp = () => {
 
   const [displayName, setDisplayName] = useState('');
 
-  // const handleRegister = (e) => {
-  //   e.preventDefault();
-  //   const displayName = name.current.value;
-  //   try {
-  //     auth
-  //       .createUserWithEmailAndPassword(
-  //         email.current.value,
-  //         password.current.value
-  //       )
-  //       .then(async (userAuth) => {
-  //         await userAuth.user.updateProfile({ displayName });
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //     setError(true);
-  //   }
-  // };
-
   const handleRegister = (e) => {
     e.preventDefault();
     try {
@@ -36,10 +18,9 @@ const SignUp = () => {
         )
         .then(async (userAuth) => {
           await userAuth.user.updateProfile({
-            displayName
+            displayName,
           });
           window.location.reload();
-
         });
     } catch (error) {
       console.log(error.message);

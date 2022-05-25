@@ -22,7 +22,7 @@ const Blog = () => {
 
   return (
     <>
-      {!user ? (
+      {!user || !user.displayName ? (
         <div className="blog-container">
           <div className="connect-header">
             <div
