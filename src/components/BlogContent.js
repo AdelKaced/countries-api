@@ -47,7 +47,6 @@ const BlogContent = ({ user }) => {
   };
 
   useEffect(() => getData(), [newRender]);
-  console.log(user);
 
   return (
     <div className="blogContent-container">
