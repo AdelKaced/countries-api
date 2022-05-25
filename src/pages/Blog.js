@@ -12,7 +12,11 @@ const Blog = () => {
   useEffect(() => {
     // check if user is connect this method allow to get all connect data from user
     onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
+        setUser(null);
+      }
     });
   }, []);
 

@@ -51,12 +51,11 @@ const BlogContent = ({ user }) => {
   return (
     <div className="blogContent-container">
       <div className="user-header">
-        {user.displayName && (
-          <div>
-            <span>{user?.displayName[0]}</span>
-            <h1>{user?.displayName}</h1>
-          </div>
-        )}
+        <div>
+          <span>{user?.displayName[0]}</span>
+          <h1>{user?.displayName}</h1>
+        </div>
+
         <button onClick={handleLogOut}>
           <i className="fa-solid fa-arrow-right-from-bracket"></i>
         </button>
