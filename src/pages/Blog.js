@@ -10,11 +10,10 @@ const Blog = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-  // check if user is connect this method allow to get all connect data from user
-  onAuthStateChanged(auth, (currentUser) => {
-    console.log(currentUser);
-    setUser(currentUser);
-  });
+    // check if user is connect this method allow to get all connect data from user
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
   }, []);
 
   const handleActive = (e) => {

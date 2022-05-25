@@ -19,7 +19,7 @@ const BlogContent = ({ user }) => {
     } else {
       const data = {
         authorId: user.uid,
-        author : user.displayName,
+        author: user.displayName,
         content,
         date: Date.now(),
       };
@@ -47,14 +47,17 @@ const BlogContent = ({ user }) => {
   };
 
   useEffect(() => getData(), [newRender]);
+  console.log(user);
 
   return (
     <div className="blogContent-container">
       <div className="user-header">
-        <div>
-          <span>{user.displayName[0]}</span>
-          <h1>{user.displayName}</h1>
-        </div>
+        {user.displayName && (
+          <div>
+            <span>{user?.displayName[0]}</span>
+            <h1>{user?.displayName}</h1>
+          </div>
+        )}
         <button onClick={handleLogOut}>
           <i className="fa-solid fa-arrow-right-from-bracket"></i>
         </button>
@@ -76,17 +79,18 @@ const BlogContent = ({ user }) => {
         </div>
       </form>
       <div className="articles">
-        {data
-          .sort((a, b) => b.date - a.date)
-          .map((article) => (
-            <Article
-              key={article.id}
-              article={article}
-              setNewRender={setNewRender}
-              newRender={newRender}
-              user= {user}
-            />
-          ))}
+        {data.length > 0 &&
+          data
+            .sort((a, b) => b.date - a.date)
+            .map((article) => (
+              <Article
+                key={article.id}
+                article={article}
+                setNewRender={setNewRender}
+                newRender={newRender}
+                user={user}
+              />
+            ))}
       </div>
     </div>
   );
