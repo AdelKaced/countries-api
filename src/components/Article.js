@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { db } from '../utils/firebase.config';

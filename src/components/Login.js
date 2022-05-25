@@ -12,7 +12,7 @@ const Login = () => {
     console.log('waiting');
 
     try {
-      const user = await signInWithEmailAndPassword(
+      await signInWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value
@@ -31,7 +31,7 @@ const Login = () => {
         <input type="password" placeholder="password" ref={password} />
         <input type="submit" value="Log In" />
       </form>
-      <p>{error ? "Email And password doesn't match" : '' }</p>
+      <p>{error ? "Email And password doesn't match" : ''}</p>
     </div>
   );
 };
