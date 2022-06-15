@@ -2,6 +2,8 @@
 import { signOut } from 'firebase/auth';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { logout } from '../features/userSlice';
 import { auth, db } from '../utils/firebase.config';
 import Article from './Article';
 
@@ -11,6 +13,7 @@ const BlogContent = ({ user }) => {
   const [content, setContent] = useState('');
   // const [author, setAuthor] = useState('');
   const [newRender, setNewRender] = useState(true);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +36,7 @@ const BlogContent = ({ user }) => {
 
   const handleLogOut = async () => {
     await signOut(auth);
+    dispatch(logout());
   };
 
   const handleChange = (e) => {

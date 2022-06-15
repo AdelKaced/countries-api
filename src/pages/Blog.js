@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SignUp from '../components/SignUp';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase.config';
@@ -27,17 +27,19 @@ const Blog = () => {
   //   }
   // }).then((result) => console.log(result))
 
-  // useEffect(() => {
-  //   console.log('is Render ');
+  useEffect(() => {
+    console.log('is Render ');
+
     onAuthStateChanged(auth, (currentUser) => {
-      console.log('isonauth');
-      if (currentUser) {
+      console.log('isonauth', currentUser);
+      if (currentUser && currentUser.displayName) {
+        console.log(currentUser.displayName);
         dispatch(login(currentUser));
-      } else {
-        dispatch(logout());
+        // } else {
+        //   dispatch(logout());
       }
     });
-  // }, []);
+  }, []);
 
   // useEffect(() => {
   //   const unsub = onAuthStateChanged(auth, (user) => {
@@ -56,7 +58,7 @@ const Blog = () => {
   console.log(user);
   return (
     <>
-      {!user || !user.displayName ? (
+      {!user ? (
         <div className="blog-container">
           <div className="connect-header">
             <div
