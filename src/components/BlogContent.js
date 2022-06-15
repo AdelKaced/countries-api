@@ -1,19 +1,24 @@
 // import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import Article from './Article';
+
+// Firebase
 import { signOut } from 'firebase/auth';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { logout } from '../features/userSlice';
 import { auth, db } from '../utils/firebase.config';
-import Article from './Article';
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { getPosts, logout, posts, addPost } from '../features/userSlice';
 
 const BlogContent = ({ user }) => {
   const [error, setError] = useState(false);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [content, setContent] = useState('');
-  // const [author, setAuthor] = useState('');
   const [newRender, setNewRender] = useState(true);
+
   const dispatch = useDispatch();
+  const data = useSelector(posts);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,11 +31,13 @@ const BlogContent = ({ user }) => {
         content,
         date: Date.now(),
       };
-      await addDoc(collection(db, 'articles'), data);
-      setError(false);
-      // setAuthor('');
+      await addDoc(collection(db, 'articles'), data)
+        .then(() => {
+          dispatch(addPost(data));
+        })
+        .then(() => getData());
       setContent('');
-      window.location.reload();
+      setError(false);
     }
   };
 
@@ -46,12 +53,13 @@ const BlogContent = ({ user }) => {
 
   const getData = () => {
     getDocs(collection(db, 'articles')).then((res) =>
-      setData(res.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      dispatch(getPosts(res.docs.map((doc) => ({ ...doc.data(), id: doc.id }))))
     );
   };
-
+// eslint-disable-next-line 
   useEffect(() => getData(), []);
 
+  console.log(data);
   return (
     <div className="blogContent-container">
       <div className="user-header">
@@ -73,6 +81,7 @@ const BlogContent = ({ user }) => {
         <textarea
           style={{ border: error ? '1px solid red' : '1px solid #61dafb' }}
           placeholder="message"
+          value={content}
           onChange={handleChange}
         ></textarea>
         <div className="div-button">
@@ -81,8 +90,8 @@ const BlogContent = ({ user }) => {
         </div>
       </form>
       <div className="articles">
-        {data.length > 0 &&
-          data
+        {data &&
+          [...data]
             .sort((a, b) => b.date - a.date)
             .map((article) => (
               <Article

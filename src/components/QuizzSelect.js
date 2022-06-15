@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { countries, goodAnswers, resetCounter } from '../features/userSlice';
 import Card from './Card';
 import Select from './Select';
 
 const QuizzSelect = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [selectedRadio, setSelectedRadio] = useState('');
   const [isStart, setIsStart] = useState(false);
   const [quizzIsOn, setQuizzIsOn] = useState(false);
   const [nextQuestion, setNextQuestion] = useState(false);
-  const [resultQuizz, setResultQuizz] = useState(0);
+  // const [resultQuizz, setResultQuizz] = useState(0);
   const [displayScore, setDisplayScore] = useState(false);
+
+  const data = useSelector(countries);
+  const score = useSelector(goodAnswers)
+  const  dispatch = useDispatch()
 
   const numberMaxQuestion = 5;
 
@@ -32,7 +38,7 @@ const QuizzSelect = () => {
     if (param < 2) {
       return 'Too bad you need more training';
     } else if (param <= 4) {
-      return 'Good Job'; 
+      return 'Good Job';
     } else {
       return 'Wonderful';
     }
@@ -43,7 +49,6 @@ const QuizzSelect = () => {
   return (
     <div className="quizz">
       <Select
-        setData={setData}
         selectedRadio={selectedRadio}
         setSelectedRadio={setSelectedRadio}
         isStart={isStart}
@@ -73,7 +78,7 @@ const QuizzSelect = () => {
                 otherCountry3={filterDataContinent[randomIndex[2]]}
                 setNextQuestion={setNextQuestion}
                 nextQuestion={nextQuestion}
-                setResultQuizz={setResultQuizz}
+                // setResultQuizz={setResultQuizz}
                 numberMaxQuestion={numberMaxQuestion}
                 setDisplayScore={setDisplayScore}
               />
@@ -91,13 +96,14 @@ const QuizzSelect = () => {
           </div>
         ) : (
           <div className="score">
-            <h3>{rewards(resultQuizz)} !</h3>
+            <h3>{rewards(score)} !</h3>
             <p>
-              You score is {resultQuizz}/ {numberMaxQuestion}
+              You score is {score}/ {numberMaxQuestion}
             </p>
             <button
               onClick={() => {
-                setResultQuizz(0);
+                // setResultQuizz(0);
+                dispatch(resetCounter())
                 setDisplayScore(false);
               }}
             >

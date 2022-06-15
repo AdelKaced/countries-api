@@ -1,11 +1,13 @@
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deletePost } from '../features/userSlice';
 import { db } from '../utils/firebase.config';
 
-const Article = ({ article, setNewRender, newRender, user }) => {
+const Article = ({ article, user }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(article.content);
-
+  const dispatch = useDispatch()
   const handleEdit = async () => {
     const data = {
       author: article.author,
@@ -23,8 +25,10 @@ const Article = ({ article, setNewRender, newRender, user }) => {
   };
 
   const handleDeleteData = async () => {
-    await deleteDoc(doc(db, 'articles', article.id));
-    setNewRender(!newRender);
+    await deleteDoc(doc(db, 'articles', article.id)).then(()=> {
+      dispatch(deletePost(article.id))
+    })
+
   };
 
   return (

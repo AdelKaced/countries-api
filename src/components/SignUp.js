@@ -31,19 +31,7 @@ const SignUp = () => {
       console.log(error);
       setError(true);
     }
-    // dispatch(login('test'));
-    // .then((userAuth) => {
-    //   dispatch(login('test'))})
-    //         userAuth.user.updateProfile({
-    //           displayName,
-    //         }).then(dispatch(login('test')));
-    //       }).catch((error)=> {
-    //         console.log('first catch' + error);
-    //       })
-    //   } catch (error) {
-    //     console.log(error)
-    //     setError(true);
-    //   }
+
   };
 
   return (

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { countGoodAnswers } from '../features/userSlice';
 
 const Card = ({
   country,
@@ -6,7 +8,6 @@ const Card = ({
   otherCountry3,
   setNextQuestion,
   nextQuestion,
-  setResultQuizz,
   numberMaxQuestion,
   setDisplayScore,
 }) => {
@@ -15,7 +16,9 @@ const Card = ({
   const [answerIsCorrect, setAnswerIsCorrect] = useState(false);
   const [randomInput, setRandomInput] = useState('');
   const [countQuestion, setCountQuestion] = useState(1);
-  const [countCorrectAnswers, setCountCorrectAnswers] = useState(0);
+  // const [countCorrectAnswers, setCountCorrectAnswers] = useState(0);
+
+  const dispatch = useDispatch();
 
   // put all country data on array to create esealy input
   const inputs = [country, otherCountry2, otherCountry3];
@@ -26,20 +29,22 @@ const Card = ({
       setIsValidate(true);
       // change answerIsCorrect to True when response is correct
       setAnswerIsCorrect(country.name.common === selectedAnswer);
-      if (country.name.common === selectedAnswer)
-        setCountCorrectAnswers(countCorrectAnswers + 1);
+      if (country.name.common === selectedAnswer) {
+        dispatch(countGoodAnswers());
+        // setCountCorrectAnswers(countCorrectAnswers + 1);
+      }
     }
   };
 
   const handleDisplayScore = () => {
-    setResultQuizz(countCorrectAnswers);
+    // setResultQuizz(countCorrectAnswers);
     setDisplayScore(true);
   };
 
   // Sort Input data to change the order of right answer
   useEffect(() => {
     setRandomInput(inputs.sort(() => Math.random() - 0.5));
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, [nextQuestion]);
 
   return (
