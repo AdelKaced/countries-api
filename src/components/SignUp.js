@@ -7,25 +7,37 @@ const SignUp = () => {
   const [error, setError] = useState(false);
 
   const [displayName, setDisplayName] = useState('');
-
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      auth
+      const userAuth = await auth
         .createUserWithEmailAndPassword(
           email.current.value,
           password.current.value
         )
-        .then(async (userAuth) => {
-          await userAuth.user.updateProfile({
+        .then((userAuth) => {
+          userAuth.user.updateProfile({
             displayName,
           });
-          window.location.reload();
         });
+        console.log(userAuth);
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
       setError(true);
     }
+    // dispatch(login('test'));
+    // .then((userAuth) => {
+    //   dispatch(login('test'))})
+    //         userAuth.user.updateProfile({
+    //           displayName,
+    //         }).then(dispatch(login('test')));
+    //       }).catch((error)=> {
+    //         console.log('first catch' + error);
+    //       })
+    //   } catch (error) {
+    //     console.log(error)
+    //     setError(true);
+    //   }
   };
 
   return (

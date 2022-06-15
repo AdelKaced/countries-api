@@ -16,13 +16,6 @@ const Article = ({ article, setNewRender, newRender, user }) => {
 
     (await editContent) && updateDoc(doc(db, 'articles', article.id), data);
     setIsEditing(false);
-
-    // axios
-    //   .put(`http://localhost:3004/articles/${article.id}`, data)
-    //   .then((res) => {
-    //     console.log(res);
-    //     setIsEditing(false);
-    //   });
   };
 
   const dateFormater = (date) => {
@@ -32,10 +25,6 @@ const Article = ({ article, setNewRender, newRender, user }) => {
   const handleDeleteData = async () => {
     await deleteDoc(doc(db, 'articles', article.id));
     setNewRender(!newRender);
-
-    // axios
-    //   .delete(`http://localhost:3004/articles/${article.id}`)
-    //   .then(() => setNewRender(!newRender));
   };
 
   return (

@@ -1,7 +1,10 @@
 .about {
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
 
+  h3 {
+    text-indent: 4em;
+  }
   p {
     margin: 10px;
     // max-width: 200em;
